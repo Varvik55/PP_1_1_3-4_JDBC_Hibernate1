@@ -8,15 +8,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         UserService usDB = new UserServiceImpl();
 
-        try {
-            usDB.createUsersTable();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+        usDB.createUsersTable();
+
 
         usDB.saveUser("Kirill","Gribov", (byte) 24);
         usDB.saveUser("Kirill1","Gribov", (byte) 24);
