@@ -22,12 +22,12 @@ public class Main {
         usDB.saveUser("Kirill3","Gribov", (byte) 24);
 
 
-       List<User> l = usDB.getAllUsers();
-        System.out.println(l);
+       usDB.getAllUsers().stream().forEach(System.out::println);
+
         usDB.removeUserById(4);
 
-        l = usDB.getAllUsers();
-        System.out.println(l);
+        usDB.getAllUsers().stream().forEach(System.out::println);
+
 
         // реализуйте алгоритм здесь
     }
