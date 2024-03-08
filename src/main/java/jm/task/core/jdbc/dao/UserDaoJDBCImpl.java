@@ -9,15 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao  {
-    public Connection connection = Util.getConnection();
+    private Connection connection = Util.getConnection();
 
 
     public UserDaoJDBCImpl() {
 
 
     }
-
-
 
     public void createUsersTable()  {
 
@@ -28,8 +26,7 @@ public class UserDaoJDBCImpl implements UserDao  {
                 + "lastname VARCHAR(255),"
                 + "age BIGINT"
                 + ")";
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement();){
             statement.executeUpdate(createTable);
         } catch (Exception e) {
 
@@ -40,9 +37,7 @@ public class UserDaoJDBCImpl implements UserDao  {
     public void dropUsersTable() {
         String dropUser = "DROP TABLE IF EXISTS users";
         try (Statement statement = connection.createStatement();){
-
             statement.executeUpdate(dropUser);
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -57,14 +52,7 @@ public class UserDaoJDBCImpl implements UserDao  {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
-            int rowsAffected = preparedStatement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("Данные успешно добавлены в таблицу.");
-
-            } else{
-                System.out.println("Не удалось добавить данные в таблицу.");
-            }
+            preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -75,12 +63,7 @@ public class UserDaoJDBCImpl implements UserDao  {
         String remove = "DELETE FROM users WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(remove);){
             preparedStatement.setLong(1,id);
-            int res = preparedStatement.executeUpdate();
-            if (res > 0 ){
-                System.out.println("Елемент " + id + "Успешно удален");
-            } else {
-                System.out.println("Ошибка");
-            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
