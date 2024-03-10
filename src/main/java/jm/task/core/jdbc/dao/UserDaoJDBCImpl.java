@@ -71,11 +71,13 @@ public class UserDaoJDBCImpl implements UserDao  {
 
     public List<User> getAllUsers() {
         List <User> list = new ArrayList<>();
+        User user = new User();
 
        String getUser ="SELECT * FROM users";
         try (Statement statement = connection.createStatement();){
             ResultSet resultSet = statement.executeQuery(getUser);
             while (resultSet.next()){
+
                 list.add(new User(resultSet.getLong("id")
                         , resultSet.getString("name")
                         , resultSet.getString("lastName")

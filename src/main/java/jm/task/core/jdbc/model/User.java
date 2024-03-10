@@ -1,73 +1,42 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import jakarta.persistence.Entity;
 
-@Table
+@Entity
+@Getter
+@Setter
+@Table(name = "users",schema = "TestDataBase")
 public class User {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-
-    @Column
     private String name;
-
-    @Column
     private String lastName;
-
-    @Column
-    private Byte age;
+    private Long age;
 
     public User() {
 
     }
 
-    public User(Long id, String name, String lastName, Byte age) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.age = age;
-    }
-
     public User(String name, String lastName, Byte age) {
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
+        this.age = Long.valueOf(age);
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public User(long id, String name, String lastName, byte age) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
         this.lastName = lastName;
+        this.age = (long) age;
     }
-
-    public Byte getAge() {
-        return age;
-    }
-
-    public void setAge(Byte age) {
-        this.age = age;
-    }
-
     @Override
     public String toString() {
         return "User{" +
