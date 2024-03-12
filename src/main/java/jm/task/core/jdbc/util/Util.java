@@ -38,7 +38,6 @@ public class Util {
                     .setProperty("hibernate.connection.password", PASSWORD)
                     .setProperty("current_session_context_class", "true")
                     .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect")
-                    .setProperty("Environment.HBM2DDL_AUTO", "update")
                     .setProperty("hibernate.show_sql","true")
                     .addAnnotatedClass(User.class);
 
